@@ -1,16 +1,26 @@
-#include <Arduino.h>
-#include <LightSensor.h>
+#include "RevEng_PAJ7620.h"
+#include "GestureSensor.h"
+#include "log.h"
 
-LightSensor lightSensor(36);
+GestureSensor sensor = GestureSensor();
 
 void setup()
 {
   Serial.begin(115200);
+
+  sensor.Init();
 }
 
 void loop()
 {
-  float lux = lightSensor.GetLux();
-  Serial.println(lux);
-  delay(500);
+  Gesture gesture = sensor.ReadGesture();
+  String code = sensor.ShortGestureCode(gesture, true);
+
+  if (code == "UNKNOWN")
+  {
+    return;
+  }
+
+  Log::Info("Detected Gesture - " + code);
+  delay(100);
 }

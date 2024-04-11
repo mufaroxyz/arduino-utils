@@ -1,6 +1,7 @@
 /**
  * @file LightSensor.hpp
  * @brief LightSensor for ESP32 - DFRobot Light Sensor PT550
+ * @author mufaro
  */
 class LightSensor
 {
